@@ -1,9 +1,8 @@
 package model.entities;
 
-import java.util.Calendar;
+import java.util.ArrayList;
 import java.util.Date;
-
-import model.services.PaymentService;
+import java.util.List;
 
 public class Contract {
 	
@@ -11,16 +10,15 @@ public class Contract {
 	private Date date;
 	private Double value;
 	
-	private PaymentService paymentService;
+	List<Installment> installments = new ArrayList<Installment>();
 	
 	public Contract() {
 	}
 
-	public Contract(Integer number, Date date, Double value, PaymentService paymentService) {
+	public Contract(Integer number, Date date, Double value) {
 		this.number = number;
 		this.date = date;
 		this.value = value;
-		this.paymentService = paymentService;
 	}
 
 	public Integer getNumber() {
@@ -46,24 +44,17 @@ public class Contract {
 	public void setValue(Double value) {
 		this.value = value;
 	}
-
-	public PaymentService getPaymentService() {
-		return paymentService;
+	
+	public List<Installment> getInstallments() {
+		return installments;
 	}
 	
-	public Date installmentDate(int installment) {
-		
-		Calendar cal = Calendar.getInstance();
-		cal.setTime(date);
-		
-		cal.add(Calendar.MONTH, installment);
-		
-		return cal.getTime();
-		
+	public void addInstallment(Installment installment) {
+		installments.add(installment);
 	}
 	
-	public double installmentQuota(double amount, int installment) {
-		return paymentService.quota(amount, installment);
+	public void removeInstallment(Installment installment) {
+		installments.remove(installment);
 	}
 	
 }

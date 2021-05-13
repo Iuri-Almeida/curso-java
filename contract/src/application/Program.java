@@ -7,7 +7,9 @@ import java.util.Locale;
 import java.util.Scanner;
 
 import model.entities.Contract;
-import model.services.PaypalPaymentService;
+import model.entities.Installment;
+import model.services.ContractService;
+import model.services.PaypalService;
 
 public class Program {
 
@@ -32,24 +34,23 @@ public class Program {
 			System.out.print("Contract value: R$");
 			double value = sc.nextDouble();
 			
-			Contract contract = new Contract(number, date, value, new PaypalPaymentService());
+			Contract contract = new Contract(number, date, value);
 			
 			System.out.print("Enter number of installments: ");
-			int installments = sc.nextInt();
+			int numberOfInstallments = sc.nextInt();
 			
-			double amount = contract.getValue() / installments;
+			ContractService cs = new ContractService(new PaypalService());
+			cs.processContract(contract, numberOfInstallments);
 			
 			System.out.println("\nInstallments:");
 			
-			for (int i = 1; i <= installments; i++) System.out.println(sdf.format(contract.installmentDate(i)) + " - R$ " + String.format("%.2f", contract.installmentQuota(amount, i)));
+			for (Installment i : contract.getInstallments()) System.out.println(sdf.format(i.getDueDate()) + " - R$" + String.format("%.2f", i.getAmount()));
 			
 		} catch (ParseException e) {
 			System.out.println("Error: " + e.getMessage());
 		} catch (RuntimeException e) {
 			System.out.println("Unexpected error.");
 		}
-		
-		
 		
 		sc.close();
 
