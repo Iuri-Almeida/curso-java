@@ -13,14 +13,12 @@ public class Program {
 		System.out.print("How many values? ");
 		int n = sc.nextInt();
 		
-		PrintService ps = new PrintService();
-		
-//		ps.addValue("Joao");
+		PrintService<String> ps = new PrintService<String>();
 		
 		for (int i = 0; i < n; i++) {
 			
 			System.out.printf("Enter the #%d value: ", i + 1);
-			int value = sc.nextInt();
+			String value = sc.next();
 			
 			ps.addValue(value);
 			
@@ -30,7 +28,7 @@ public class Program {
 		ps.print();
 		
 		try {
-			Integer first = (Integer) ps.first();
+			String first = ps.first();
 			System.out.println("\nFirst: " + first);
 		} catch (IllegalStateException e) {
 			System.out.println("Error: " + e.getMessage());
