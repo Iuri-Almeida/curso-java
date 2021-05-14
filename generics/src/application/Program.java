@@ -15,6 +15,8 @@ public class Program {
 		
 		PrintService ps = new PrintService();
 		
+//		ps.addValue("Joao");
+		
 		for (int i = 0; i < n; i++) {
 			
 			System.out.printf("Enter the #%d value: ", i + 1);
@@ -28,7 +30,8 @@ public class Program {
 		ps.print();
 		
 		try {
-			System.out.println("\nFirst: " + ps.first());
+			Integer first = (Integer) ps.first();
+			System.out.println("\nFirst: " + first);
 		} catch (IllegalStateException e) {
 			System.out.println("Error: " + e.getMessage());
 		}
