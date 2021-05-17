@@ -1,7 +1,7 @@
 package exercicios;
 import java.util.Locale;
 
-public class ExInicial {
+public class ex001 {
 
 	public static void main(String[] args) {
 		
